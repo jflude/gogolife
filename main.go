@@ -13,7 +13,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	placeReady()
+	startJob(&normalize)
 
 	for generate(1000) {
 		// empty

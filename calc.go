@@ -8,10 +8,6 @@ func (j calcJob) start() {
 	// empty
 }
 
-func (j calcJob) finish() {
-	// empty
-}
-
 func (j calcJob) work(id int, r *row) {
 	m0 := newMergeable(r.prev.effects)
 	m1 := newMergeable(r.effects)
@@ -34,4 +30,8 @@ func (j calcJob) work(id int, r *row) {
 			r.changes = append(r.changes, change{sp, aff.x})
 		}
 	}
+}
+
+func (j calcJob) finish() {
+	// empty
 }
