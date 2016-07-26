@@ -1,5 +1,9 @@
 package main
 
+import "image"
+
+var extent image.Rectangle
+
 func placeCells(x, y int, alive []bool) {
 	r := findRow(nil, y)
 	var sp *span
@@ -12,4 +16,6 @@ func placeCells(x, y int, alive []bool) {
 
 		x++
 	}
+
+	extent = extent.Union(image.Rect(x, y, x, y))
 }

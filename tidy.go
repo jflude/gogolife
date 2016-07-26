@@ -13,7 +13,6 @@ type tidyJob struct {
 }
 
 var tidy tidyJob
-var extent image.Rectangle
 
 func (j *tidyJob) start() {
 	j.attribs = make([]attrib, stride)
@@ -49,7 +48,7 @@ func (j *tidyJob) work(id int, r *row) {
 
 func (j *tidyJob) finish() {
 	if rows.next == &rows {
-		extent = image.Rect(0, 0, 0, 0)
+		extent = image.ZR
 		return
 	}
 

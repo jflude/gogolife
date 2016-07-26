@@ -13,9 +13,12 @@ func main() {
 		os.Exit(1)
 	}
 
-	startJob(&normalize)
+	startJob(&normal)
 
-	for generate(1000) {
-		// empty
+	for generate(10) {
+		if err := encode(fmt.Sprintf("img%06d", generation)); err != nil {
+			fmt.Println(err)
+			os.Exit(2)
+		}
 	}
 }

@@ -2,15 +2,15 @@ package main
 
 import "sort"
 
-type normalizeJob struct{}
+type normalJob struct{}
 
-var normalize normalizeJob
+var normal normalJob
 
-func (j normalizeJob) start() {
+func (j normalJob) start() {
 	// empty
 }
 
-func (j normalizeJob) work(id int, r *row) {
+func (j normalJob) work(id int, r *row) {
 	if len(r.changes) == 0 {
 		return
 	}
@@ -28,6 +28,6 @@ func (j normalizeJob) work(id int, r *row) {
 	r.changes = r.changes[:k+1]
 }
 
-func (j normalizeJob) finish() {
+func (j normalJob) finish() {
 	// empty
 }
