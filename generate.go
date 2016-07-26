@@ -18,7 +18,7 @@ func generate(maxGen int64) bool {
 	generation++
 
 	fmt.Println("### GENERATION", generation, population,
-		float64(time.Now().Sub(now).Nanoseconds())/1000, bounds)
+		float64(time.Now().Sub(now).Nanoseconds())/1000, extent)
 
 	printWorld()
 	return (maxGen == 0 || generation < maxGen) && rows.next != &rows

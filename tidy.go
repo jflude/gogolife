@@ -13,6 +13,7 @@ type tidyJob struct {
 }
 
 var tidy tidyJob
+var extent image.Rectangle
 
 func (j *tidyJob) start() {
 	j.attribs = make([]attrib, stride)
@@ -48,22 +49,22 @@ func (j *tidyJob) work(id int, r *row) {
 
 func (j *tidyJob) finish() {
 	if rows.next == &rows {
-		bounds = image.Rect(0, 0, 0, 0)
+		extent = image.Rect(0, 0, 0, 0)
 		return
 	}
 
-	bounds = image.Rectangle{
+	extent = image.Rectangle{
 		Min: image.Point{maxInt, rows.next.y},
 		Max: image.Point{minInt, rows.prev.y},
 	}
 
 	for i := 0; i < stride; i++ {
-		if j.attribs[i].left < bounds.Min.X {
-			bounds.Min.X = j.attribs[i].left
+		if j.attribs[i].left < extent.Min.X {
+			extent.Min.X = j.attribs[i].left
 		}
 
-		if j.attribs[i].right > bounds.Max.X {
-			bounds.Max.X = j.attribs[i].right
+		if j.attribs[i].right > extent.Max.X {
+			extent.Max.X = j.attribs[i].right
 		}
 
 		population += j.attribs[i].pop
