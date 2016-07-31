@@ -20,13 +20,8 @@ func drawCell(x, y int, cell int8) {
 	x = 3*x + origin.X
 	y = 3*y + origin.Y
 
-	i := (y-display.Rect.Min.Y)*display.Stride + x - display.Rect.Min.X
-
-	display.Pix[i] = c
-	display.Pix[i+1] = c
-
-	i += display.Stride
-
-	display.Pix[i] = c
-	display.Pix[i+1] = c
+	display.SetColorIndex(x, y, c)
+	display.SetColorIndex(x+1, y, c)
+	display.SetColorIndex(x, y+1, c)
+	display.SetColorIndex(x+1, y+1, c)
 }
