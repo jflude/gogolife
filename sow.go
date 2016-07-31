@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	patternSize    = 20
+	patternSize    = 150
 	patternDensity = 50
 )
 

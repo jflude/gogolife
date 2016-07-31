@@ -3,29 +3,30 @@ package main
 import (
 	"image"
 	"image/color"
-	"image/draw"
 )
 
-var display = image.NewRGBA(image.Rect(0, 0, 1000, 1000))
-var offset = image.Pt(400, 400)
-
-func init() {
-	draw.Draw(display, display.Bounds(), &image.Uniform{C: color.White}, image.ZP, draw.Src)
-}
+var origin = image.Pt(150, 150)
+var display = image.NewPaletted(image.Rect(0, 0, 999, 999),
+	color.Palette{color.White, color.Black})
 
 func drawCell(x, y int, cell int8) {
-	var c color.Color
+	var c uint8
 	if isAlive(cell) {
-		c = color.Black
+		c = 1
 	} else {
-		c = color.White
+		c = 0
 	}
 
-	x = 3*x + offset.X
-	y = 3*y + offset.Y
+	x = 3*x + origin.X
+	y = 3*y + origin.Y
 
-	display.Set(x, y, c)
-	display.Set(x+1, y, c)
-	display.Set(x, y+1, c)
-	display.Set(x+1, y+1, c)
+	i := (y-display.Rect.Min.Y)*display.Stride + x - display.Rect.Min.X
+
+	display.Pix[i] = c
+	display.Pix[i+1] = c
+
+	i += display.Stride
+
+	display.Pix[i] = c
+	display.Pix[i+1] = c
 }

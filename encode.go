@@ -1,17 +1,28 @@
 package main
 
 import (
-	"image/jpeg"
+	"image"
+	"image/gif"
 	"os"
 )
 
-func encode(name string) error {
-	f, err := os.Create(name + ".jpg")
+var animated gif.GIF
+
+func accumulate() {
+	clone := image.NewPaletted(display.Rect, display.Palette)
+	copy(clone.Pix, display.Pix)
+
+	animated.Image = append(animated.Image, clone)
+	animated.Delay = append(animated.Delay, 10)
+}
+
+func encode(filename string) error {
+	f, err := os.Create(filename)
 	if err != nil {
 		return err
 	}
 
-	if err := jpeg.Encode(f, display, &jpeg.Options{Quality: 100}); err != nil {
+	if err := gif.EncodeAll(f, &animated); err != nil {
 		f.Close()
 		return err
 	}

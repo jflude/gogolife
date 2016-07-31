@@ -6,6 +6,8 @@ import (
 	"strings"
 )
 
+const maxGenerations = 200
+
 func main() {
 	pattern := sowPattern()
 	if err := importPattern(strings.NewReader(pattern)); err != nil {
@@ -15,10 +17,15 @@ func main() {
 
 	startJob(&normal)
 
-	for generate(10) {
-		if err := encode(fmt.Sprintf("img%06d", generation)); err != nil {
-			fmt.Println(err)
-			os.Exit(2)
+	for {
+		accumulate()
+		if generation >= maxGenerations || !generate() {
+			break
 		}
+	}
+
+	if err := encode("life.gif"); err != nil {
+		fmt.Println(err)
+		os.Exit(2)
 	}
 }
