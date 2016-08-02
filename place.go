@@ -12,10 +12,25 @@ func placeCells(x, y int, alive []bool) {
 		sp = findSpan(r, sp, x)
 		if a != isAlive(*findCell(sp, x)) {
 			r.changes = append(r.changes, change{sp, x})
+			if a {
+				if x < extent.Min.X {
+					extent.Min.X = x
+				}
+
+				if x > extent.Max.X {
+					extent.Max.X = x
+				}
+			}
 		}
 
 		x++
 	}
 
-	extent = extent.Union(image.Rect(x, y, x, y))
+	if y < extent.Min.Y {
+		extent.Min.Y = y
+	}
+
+	if y > extent.Max.Y {
+		extent.Max.Y = y
+	}
 }

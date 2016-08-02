@@ -3,16 +3,26 @@ package main
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"strings"
 )
 
 const maxGenerations = 200
 
 func main() {
-	pattern := sowPattern()
-	if err := importPattern(strings.NewReader(pattern)); err != nil {
+	var kind int
+	var err error
+	if len(os.Args) > 1 {
+		if kind, err = strconv.Atoi(os.Args[1]); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+	}
+
+	pattern := sowPattern(kind)
+	if err = importPattern(strings.NewReader(pattern)); err != nil {
 		fmt.Println(err)
-		os.Exit(1)
+		os.Exit(2)
 	}
 
 	startJob(&normal)
@@ -24,8 +34,8 @@ func main() {
 		}
 	}
 
-	if err := encode("life.gif"); err != nil {
+	if err = encode("life.gif"); err != nil {
 		fmt.Println(err)
-		os.Exit(2)
+		os.Exit(3)
 	}
 }

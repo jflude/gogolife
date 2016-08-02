@@ -7,18 +7,25 @@ import (
 )
 
 const (
-	patternSize    = 150
+	patternSize    = displayWidth / 2
 	patternDensity = 50
 )
 
-func sowPattern() (pat string) {
+func sowPattern(kind int) (pat string) {
 	seed := time.Now().UnixNano()
-	rand.Seed(seed)
 	fmt.Println("Seed is", seed)
+	rand.Seed(seed)
 
-	pat = fmt.Sprintf("%d 0\n", patternSize/2)
-	//pat += randomPattern()
-	//pat += solidPattern()
-	pat += agarPattern()
+	pat = "0 0\n"
+
+	switch kind {
+	case 0:
+		pat += randomPattern()
+	case 1:
+		pat += solidPattern()
+	case 2:
+		pat += agarPattern()
+	}
+
 	return
 }

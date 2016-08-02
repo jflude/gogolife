@@ -5,9 +5,15 @@ import (
 	"image/color"
 )
 
-var origin = image.Pt(150, 150)
-var display = image.NewPaletted(image.Rect(0, 0, 999, 999),
+const (
+	displayWidth  = 333
+	displayHeight = 333
+)
+
+var display = image.NewPaletted(image.Rect(0, 0, 3*displayWidth, 3*displayHeight),
 	color.Palette{color.White, color.Black})
+
+var origin image.Point
 
 func drawCell(x, y int, cell int8) {
 	var c uint8
