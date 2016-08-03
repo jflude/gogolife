@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+const frameDelay = 10
+
 var animated gif.GIF
 
 func accumulate() {
@@ -13,7 +15,7 @@ func accumulate() {
 	copy(clone.Pix, display.Pix)
 
 	animated.Image = append(animated.Image, clone)
-	animated.Delay = append(animated.Delay, 10)
+	animated.Delay = append(animated.Delay, frameDelay)
 }
 
 func encode(filename string) error {
