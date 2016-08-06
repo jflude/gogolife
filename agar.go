@@ -6,16 +6,18 @@ import (
 )
 
 func agarPattern() (pat string) {
-	contam := rand.Intn(patternSize / 3)
-	for i := 0; i < patternSize/3; i++ {
+	third := patternSize / 3
+	contam := third/3 + rand.Intn(third/3)
+
+	for i := 0; i < third; i++ {
 		var s string
-		for j := 0; j < patternSize/3; j++ {
+		for j := 0; j < third; j++ {
 			s += "OO."
 		}
 
 		s += "\n" + s + "\n"
 		if i == contam {
-			n := rand.Intn(patternSize - 1)
+			n := third + rand.Intn(third)
 			if n%3 == 2 {
 				n--
 			}
