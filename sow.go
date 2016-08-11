@@ -6,10 +6,9 @@ import (
 	"time"
 )
 
-const (
-	patternSize    = displayWidth / 2
-	patternDensity = 50
-)
+const patternDensity = 50
+
+var patternSize int = displayWidth / 2
 
 func sowPattern(kind int) (pat string) {
 	seed := time.Now().UnixNano()

@@ -7,12 +7,20 @@ import (
 	"strings"
 )
 
-const maxGenerations = 200
+const maxGenerations = 240
 
 func main() {
 	var kind int
 	var err error
-	if len(os.Args) > 1 {
+
+	switch len(os.Args) {
+	case 3:
+		if patternSize, err = strconv.Atoi(os.Args[2]); err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+		fallthrough
+	case 2:
 		if kind, err = strconv.Atoi(os.Args[1]); err != nil {
 			fmt.Println(err)
 			os.Exit(1)
