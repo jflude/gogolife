@@ -5,10 +5,11 @@ import (
 	"strings"
 )
 
-func agarPattern() (pat string) {
-	third := patternSize / 3
+func agarPattern(size int) string {
+	third := size / 3
 	contam := third/3 + rand.Intn(third/3)
 
+	pat := "0 0\n"
 	for i := 0; i < third; i++ {
 		var s string
 		for j := 0; j < third; j++ {
@@ -28,5 +29,5 @@ func agarPattern() (pat string) {
 		pat += ".\n" + s
 	}
 
-	return
+	return pat
 }

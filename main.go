@@ -1,10 +1,10 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"math/rand"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 )
@@ -12,35 +12,26 @@ import (
 const maxGenerations = 240
 
 func main() {
-	seed := time.Now().UnixNano()
-	fmt.Println("Seed is", seed)
-	rand.Seed(seed)
+	var kind = flag.Int("kind", 0, "the kind of initial pattern")
+	var size = flag.Int("size", displayWidth/2, "the initial size of the pattern")
+	var seed = flag.Int64("seed", time.Now().UnixNano(), "the seed for random numbers")
+	flag.Parse()
 
-	var kind int
-	var err error
-
-	switch len(os.Args) {
-	case 3:
-		if patternSize, err = strconv.Atoi(os.Args[2]); err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-		fallthrough
-	case 2:
-		if kind, err = strconv.Atoi(os.Args[1]); err != nil {
-			fmt.Println(err)
-			os.Exit(1)
-		}
-	case 1:
-		kind = rand.Intn(3)
+	rand.Seed(*seed)
+	if *kind == 0 {
+		*kind = rand.Intn(3) + 1
 	}
 
-	pattern := sowPattern(kind)
+	pattern, err := sowPattern(*kind, *size)
+	if err != nil {
+		quit(1, err)
+	}
+
 	if err = importPattern(strings.NewReader(pattern)); err != nil {
-		fmt.Println(err)
-		os.Exit(2)
+		quit(2, err)
 	}
 
+	fmt.Println("kind:", *kind, "size:", *size, "seed:", *seed)
 	startJob(&normal)
 
 	var ani gifAnimator
@@ -52,7 +43,11 @@ func main() {
 	}
 
 	if err = ani.encode("life"); err != nil {
-		fmt.Println(err)
-		os.Exit(3)
+		quit(3, err)
 	}
+}
+
+func quit(code int, err error) {
+	fmt.Fprintln(os.Stderr, err)
+	os.Exit(code)
 }

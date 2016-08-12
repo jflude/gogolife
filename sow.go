@@ -1,18 +1,18 @@
 package main
 
-const patternDensity = 50
+import "errors"
 
-var patternSize int = displayWidth / 2
+const density = 50
 
-func sowPattern(kind int) (pat string) {
+func sowPattern(kind int, size int) (string, error) {
 	switch kind {
-	case 0:
-		pat += randomPattern()
 	case 1:
-		pat += solidPattern()
+		return randomPattern(size), nil
 	case 2:
-		pat += agarPattern()
+		return solidPattern(size), nil
+	case 3:
+		return agarPattern(size), nil
+	default:
+		return "", errors.New("kind must be in the range 1...3")
 	}
-
-	return
 }

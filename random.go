@@ -2,11 +2,12 @@ package main
 
 import "math/rand"
 
-func randomPattern() (pat string) {
-	for i := 0; i < patternSize; i++ {
+func randomPattern(size int) string {
+	pat := "0 0\n"
+	for i := 0; i < size; i++ {
 		var s string
-		for j := 0; j < patternSize; j++ {
-			if rand.Intn(100) < patternDensity {
+		for j := 0; j < size; j++ {
+			if rand.Intn(100) < density {
 				s += "O"
 			} else {
 				s += "."
@@ -16,5 +17,5 @@ func randomPattern() (pat string) {
 		pat += s + "\n"
 	}
 
-	return
+	return pat
 }
