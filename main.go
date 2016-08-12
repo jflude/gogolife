@@ -51,7 +51,7 @@ func main() {
 		}
 	}
 
-	if err = ani.encode("life.gif"); err != nil {
+	if err = ani.encode("life"); err != nil {
 		fmt.Println(err)
 		os.Exit(3)
 	}
