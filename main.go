@@ -2,14 +2,20 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 const maxGenerations = 240
 
 func main() {
+	seed := time.Now().UnixNano()
+	fmt.Println("Seed is", seed)
+	rand.Seed(seed)
+
 	var kind int
 	var err error
 
@@ -25,6 +31,8 @@ func main() {
 			fmt.Println(err)
 			os.Exit(1)
 		}
+	case 1:
+		kind = rand.Intn(3)
 	}
 
 	pattern := sowPattern(kind)
@@ -35,14 +43,15 @@ func main() {
 
 	startJob(&normal)
 
+	var ani gifAnimator
 	for {
-		accumulate()
+		ani.accumulate()
 		if generation >= maxGenerations || !generate() {
 			break
 		}
 	}
 
-	if err = encode("life.gif"); err != nil {
+	if err = ani.encode("life.gif"); err != nil {
 		fmt.Println(err)
 		os.Exit(3)
 	}
