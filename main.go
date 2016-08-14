@@ -11,13 +11,13 @@ import (
 
 const maxAccumulations = 240
 
-func main() {
-	var debug = flag.Int("debug", 0, "how much debugging information to output")
-	var kind = flag.Int("kind", 0, "the kind of initial pattern")
-	var period = flag.Int("period", 1, "the periodicity of generations to display")
-	var seed = flag.Int64("seed", time.Now().UnixNano(), "the seed for random numbers")
-	var size = flag.Int("size", displayWidth/2, "the initial size of the pattern")
+var debug = flag.Int("debug", 0, "how much debugging information to output")
+var kind = flag.Int("kind", 0, "the kind of initial pattern")
+var period = flag.Int("period", 1, "the periodicity of generations to display")
+var seed = flag.Int64("seed", time.Now().UnixNano(), "the seed for random numbers")
+var size = flag.Int("size", displayWidth/2, "the initial size of the pattern")
 
+func main() {
 	flag.Parse()
 	rand.Seed(*seed)
 
@@ -39,39 +39,8 @@ func main() {
 	}
 
 	startJob(&normal)
-	maxGen := *period * maxAccumulations
 
-	var ani gifAnimator
-	for {
-		if generation%*period == 0 {
-			ani.accumulate()
-		}
-
-		if generation >= maxGen {
-			break
-		}
-
-		var g bool
-		if *debug > 0 {
-			now := time.Now()
-			g = generate()
-
-			fmt.Fprintln(os.Stderr, "### GENERATION", generation, population,
-				float64(time.Now().Sub(now).Nanoseconds())/1000, extent)
-
-			if *debug > 1 {
-				printWorld()
-			}
-		} else {
-			g = generate()
-		}
-
-		if !g {
-			break
-		}
-	}
-
-	if err = ani.encode("life"); err != nil {
+	if err := loop(*period * maxAccumulations); err != nil {
 		quit(3, err)
 	}
 }
