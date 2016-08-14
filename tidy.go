@@ -3,9 +3,8 @@ package main
 import "image"
 
 type attrib struct {
-	left, right int
-	pop         int64
-	removable   []*row
+	left, right, pop int
+	removable        []*row
 }
 
 type tidyJob struct {
@@ -43,7 +42,7 @@ func (j *tidyJob) work(id int, r *row) {
 		j.attribs[id].right = r.spans.prev.right
 	}
 
-	j.attribs[id].pop += int64(r.pop)
+	j.attribs[id].pop += r.pop
 }
 
 func (j *tidyJob) finish() {

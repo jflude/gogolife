@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"strings"
 )
 
@@ -31,7 +32,7 @@ func printWorld() {
 			}
 		}
 
-		fmt.Printf("%3d (%3d, %3d) -> %s\n",
+		fmt.Fprintf(os.Stderr, "%3d (%3d, %3d) -> %s\n",
 			r.y, r.spans.next.left, r.spans.next.right, s)
 	}
 
@@ -54,10 +55,10 @@ func printChanges() {
 			s2 += fmt.Sprintf("%d(%d) ", chg.sp.left, chg.x)
 		}
 
-		fmt.Printf("%3d%-12s <%s>\n", r.y, s, strings.TrimSpace(s2))
+		fmt.Fprintf(os.Stderr, "%3d%-12s <%s>\n", r.y, s, strings.TrimSpace(s2))
 	}
 
-	fmt.Println()
+	fmt.Fprintln(os.Stderr)
 }
 
 func printEffects() {
@@ -76,8 +77,8 @@ func printEffects() {
 			s2 += fmt.Sprintf("%d(%d) ", eff.x, eff.delta)
 		}
 
-		fmt.Printf("%3d%-12s {%s}\n", r.y, s, strings.TrimSpace(s2))
+		fmt.Fprintf(os.Stderr, "%3d%-12s {%s}\n", r.y, s, strings.TrimSpace(s2))
 	}
 
-	fmt.Println()
+	fmt.Fprintln(os.Stderr)
 }
