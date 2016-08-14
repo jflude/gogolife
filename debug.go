@@ -36,7 +36,7 @@ func printWorld() {
 			r.y, r.spans.next.left, r.spans.next.right, s)
 	}
 
-	fmt.Println()
+	fmt.Fprintln(os.Stderr)
 }
 
 func printChanges() {

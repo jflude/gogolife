@@ -21,7 +21,7 @@ func (g *gifAnimator) accumulate() {
 }
 
 func (g *gifAnimator) encode(filename string) error {
-	f, err := os.Create(filename + ".gif")
+	f, err := os.Create(filename)
 	if err != nil {
 		return err
 	}

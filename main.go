@@ -12,8 +12,9 @@ import (
 const maxAccumulations = 240
 
 var debug = flag.Int("debug", 0, "how much debugging information to output")
+var file = flag.String("file", "life.gif", "the name of the output file")
 var kind = flag.Int("kind", 0, "the kind of initial pattern")
-var period = flag.Int("period", 1, "the periodicity of generations to display")
+var skip = flag.Int("skip", 0, "the periodicity of generations to display")
 var seed = flag.Int64("seed", time.Now().UnixNano(), "the seed for random numbers")
 var size = flag.Int("size", displayWidth/2, "the initial size of the pattern")
 
@@ -21,6 +22,7 @@ func main() {
 	flag.Parse()
 	rand.Seed(*seed)
 
+	*skip++
 	if *kind == 0 {
 		*kind = rand.Intn(3) + 1
 	}
@@ -40,7 +42,7 @@ func main() {
 
 	startJob(&normal)
 
-	if err := loop(*period * maxAccumulations); err != nil {
+	if err := loop(*file, *skip*maxAccumulations); err != nil {
 		quit(3, err)
 	}
 }

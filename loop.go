@@ -6,21 +6,24 @@ import (
 	"time"
 )
 
-func loop(max int) error {
+func loop(filename string, maxGen int) error {
 	var ani gifAnimator
+	var done bool
+
 	for {
-		if generation%*period == 0 {
+		if generation%*skip == 0 {
 			ani.accumulate()
 		}
 
-		if generation >= max {
+		if done || generation >= maxGen {
 			break
 		}
 
-		var g bool
-		if *debug > 0 {
+		if *debug == 0 {
+			done = !generate()
+		} else {
 			now := time.Now()
-			g = generate()
+			done = !generate()
 
 			fmt.Fprintln(os.Stderr, "### GENERATION", generation, population,
 				float64(time.Now().Sub(now).Nanoseconds())/1000, extent)
@@ -28,14 +31,8 @@ func loop(max int) error {
 			if *debug > 1 {
 				printWorld()
 			}
-		} else {
-			g = generate()
-		}
-
-		if !g {
-			break
 		}
 	}
 
-	return ani.encode("life")
+	return ani.encode(filename)
 }
