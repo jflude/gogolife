@@ -22,11 +22,11 @@ func loop(filename string, maxGen int) error {
 		if *debug == 0 {
 			done = !generate()
 		} else {
-			now := time.Now()
+			begin := time.Now()
 			done = !generate()
 
 			fmt.Fprintln(os.Stderr, "### GENERATION", generation, population,
-				float64(time.Now().Sub(now).Nanoseconds())/1000, extent)
+				float64(time.Since(begin).Nanoseconds())/1000, extent)
 
 			if *debug > 1 {
 				printWorld()
