@@ -13,7 +13,11 @@ type span struct {
 
 func newSpan(x int) *span {
 	x = x &^ (cellChunk - 1)
-	return &span{left: x, right: x + cellChunk, cells: make([]int8, cellChunk)}
+	return &span{
+		left:  x,
+		right: x + cellChunk,
+		cells: make([]int8, cellChunk),
+	}
 }
 
 func insertBeforeSpan(sp, next *span) *span {

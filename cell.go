@@ -19,5 +19,6 @@ func changeState(cell *int8) {
 }
 
 func isChanging(cell int8) bool {
-	return cell == dead3 || (isAlive(cell) && (cell < live2 || cell > live3))
+	return cell == dead3 ||
+		(isAlive(cell) && (cell < live2 || cell > live3))
 }

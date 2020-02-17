@@ -19,15 +19,16 @@ func clipSpans(r *row) {
 		}
 
 		if w := calcRightVoid(sp); w >= minClipSize {
-			if len(r.changes) > 0 {
-				max := sp.right - r.changes[len(r.changes)-1].x - 1
+			if l := len(r.changes); l > 0 {
+				max := sp.right - r.changes[l-1].x - 1
 				if w > max {
 					w = max
 				}
 			}
 
 			if w = (w &^ (cellChunk - 1)) - cellChunk; w > 0 {
-				sp.cells = append([]int8(nil), sp.cells[:len(sp.cells)-w]...)
+				sp.cells = append([]int8(nil),
+					sp.cells[:len(sp.cells)-w]...)
 				sp.right -= w
 			}
 		}

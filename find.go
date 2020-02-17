@@ -1,25 +1,7 @@
 package main
 
-func findRow(from *row, y int) *row {
-	if from == nil {
-		from = rows.next
-	}
-
-	for {
-		if from == &rows {
-			return insertAfterRow(newRow(y), rows.prev)
-		}
-
-		if from.y == y {
-			return from
-		}
-
-		if isBehindRow(from, y) {
-			return insertBeforeRow(newRow(y), from)
-		}
-
-		from = from.next
-	}
+func findCell(sp *span, x int) *int8 {
+	return &sp.cells[x-sp.left]
 }
 
 func findSpan(r *row, from *span, x int) *span {
@@ -54,6 +36,24 @@ func findSpan(r *row, from *span, x int) *span {
 	}
 }
 
-func findCell(sp *span, x int) *int8 {
-	return &sp.cells[x-sp.left]
+func findRow(from *row, y int) *row {
+	if from == nil {
+		from = rows.next
+	}
+
+	for {
+		if from == &rows {
+			return insertAfterRow(newRow(y), rows.prev)
+		}
+
+		if from.y == y {
+			return from
+		}
+
+		if isBehindRow(from, y) {
+			return insertBeforeRow(newRow(y), from)
+		}
+
+		from = from.next
+	}
 }

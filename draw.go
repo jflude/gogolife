@@ -10,10 +10,10 @@ const (
 	displayHeight = 333
 )
 
-var display = image.NewPaletted(image.Rect(0, 0, 3*displayWidth, 3*displayHeight),
-	color.Palette{color.White, color.Black})
-
 var origin image.Point
+var display = image.NewPaletted(
+	image.Rect(0, 0, 3*displayWidth, 3*displayHeight),
+	color.Palette{color.White, color.Black})
 
 func drawCell(x, y int, cell int8) {
 	var c uint8

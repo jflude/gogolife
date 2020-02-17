@@ -25,8 +25,10 @@ func loop(filename string, maxGen int) error {
 			begin := time.Now()
 			done = !generate()
 
-			fmt.Fprintln(os.Stderr, "### GENERATION", generation, population,
-				float64(time.Since(begin).Nanoseconds())/1000, extent)
+			fmt.Fprintln(os.Stderr, "### GENERATION",
+				generation, population,
+				float64(time.Since(begin).Nanoseconds())/1000,
+				extent)
 
 			if *debug > 1 {
 				printWorld()

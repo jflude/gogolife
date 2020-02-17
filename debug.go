@@ -55,7 +55,8 @@ func printChanges() {
 			s2 += fmt.Sprintf("%d(%d) ", chg.sp.left, chg.x)
 		}
 
-		fmt.Fprintf(os.Stderr, "%3d%-12s <%s>\n", r.y, s, strings.TrimSpace(s2))
+		fmt.Fprintf(os.Stderr, "%3d%-12s <%s>\n",
+			r.y, s, strings.TrimSpace(s2))
 	}
 
 	fmt.Fprintln(os.Stderr)
@@ -77,7 +78,8 @@ func printEffects() {
 			s2 += fmt.Sprintf("%d(%d) ", eff.x, eff.delta)
 		}
 
-		fmt.Fprintf(os.Stderr, "%3d%-12s {%s}\n", r.y, s, strings.TrimSpace(s2))
+		fmt.Fprintf(os.Stderr, "%3d%-12s {%s}\n",
+			r.y, s, strings.TrimSpace(s2))
 	}
 
 	fmt.Fprintln(os.Stderr)

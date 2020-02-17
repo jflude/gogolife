@@ -27,10 +27,12 @@ func importPattern(rdr io.Reader) error {
 			placeCells(x, y, alive)
 			y++
 		} else {
-			if n, err := fmt.Sscanf(line, "%d %d\n", &x, &y); err != nil {
+			n, err := fmt.Sscanf(line, "%d %d\n", &x, &y)
+			if err != nil {
 				return err
 			} else if n != 2 {
-				return fmt.Errorf("syntax error [%d]: \"%s\"", count, line)
+				return fmt.Errorf("syntax error [%d]: \"%s\"",
+					count, line)
 			}
 		}
 	}
