@@ -19,7 +19,7 @@ func loop(filename string, maxGen int) error {
 			break
 		}
 
-		if *debug == 0 {
+		if *debug < 2 {
 			done = !generate()
 		} else {
 			begin := time.Now()
@@ -30,7 +30,7 @@ func loop(filename string, maxGen int) error {
 				float64(time.Since(begin).Nanoseconds())/1000,
 				extent)
 
-			if *debug > 1 {
+			if *debug > 2 {
 				printWorld()
 			}
 		}

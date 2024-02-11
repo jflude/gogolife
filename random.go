@@ -2,6 +2,8 @@ package main
 
 import "math/rand"
 
+const density = 50
+
 func randomPattern(size int) string {
 	pat := "0 0\n"
 	for i := 0; i < size; i++ {
