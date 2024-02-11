@@ -2,8 +2,6 @@ package main
 
 import "errors"
 
-const density = 50
-
 func sowPattern(kind int, size int) (string, error) {
 	switch kind {
 	case 1:

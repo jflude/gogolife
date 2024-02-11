@@ -38,7 +38,7 @@ func merge2Effects(m0, m1 *mergeable) effect {
 	}
 }
 
-func combine3(m0, m1, m2 *mergeable) effect {
+func combine3Effects(m0, m1, m2 *mergeable) effect {
 	a0, a1, a2 := merge1Effect(m0), merge1Effect(m1), merge1Effect(m2)
 	return effect{a0.x, a0.delta + a1.delta + a2.delta}
 }
@@ -56,7 +56,7 @@ func merge3Effects(m0, m1, m2 *mergeable) (eff effect, done bool) {
 				} else if isEffectBefore(m0, m2) {
 					eff = combine2Effects(m0, m1)
 				} else {
-					eff = combine3(m0, m1, m2)
+					eff = combine3Effects(m0, m1, m2)
 				}
 			} else {
 				eff = merge2Effects(m0, m1)

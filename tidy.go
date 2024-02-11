@@ -47,7 +47,7 @@ func (j *tidyJob) work(id int, r *row) {
 
 func (j *tidyJob) finish() {
 	if rows.next == &rows {
-		extent = image.ZR
+		extent = image.Rectangle{}
 		return
 	}
 

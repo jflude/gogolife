@@ -1,3 +1,27 @@
 * gogolife
 
 A program to simulate the Game of Life.
+
+Copyright (c) 2016 Justin Flude <justin\under{}flude@hotmail.com>.
+All rights reserved.
+
+This version outputs animated GIFs from an unbounded sparse array.
+
+: $ go build
+: $ ./gogolife -help
+: Usage of ./gogolife:
+:   -debug int
+:     	how much debugging information to output
+:   -file string
+:     	the name of the output file (default "life.gif")
+:   -kind int
+:     	the kind of initial pattern
+:   -seed int
+:     	the seed for random numbers (0 is randomize)
+:   -size int
+:     	the initial size of the pattern (default 166)
+:   -skip int
+:     	the periodicity of generations to display
+: $ ./gogolife
+: $ file life.gif
+: life.gif: GIF image data, version 89a, 999 x 999

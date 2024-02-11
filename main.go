@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"runtime"
 	"strings"
 	"time"
 )
@@ -15,12 +16,14 @@ var debug = flag.Int("debug", 0, "how much debugging information to output")
 var file = flag.String("file", "life.gif", "the name of the output file")
 var kind = flag.Int("kind", 0, "the kind of initial pattern")
 var skip = flag.Int("skip", 0, "the periodicity of generations to display")
-var seed = flag.Int64("seed", time.Now().UnixNano(),
-	"the seed for random numbers")
+var seed = flag.Int64("seed", 0, "the seed for random numbers (0 is randomize)")
 var size = flag.Int("size", displayWidth/2, "the initial size of the pattern")
 
 func main() {
 	flag.Parse()
+	if *seed == 0 {
+		*seed = time.Now().UnixNano()
+	}
 	rand.Seed(*seed)
 
 	*skip++
@@ -38,13 +41,14 @@ func main() {
 	}
 
 	if *debug > 0 {
-		fmt.Fprintln(os.Stderr, "kind:", *kind,
-			"size:", *size, "seed:", *seed)
+		fmt.Fprintln(os.Stderr, "kind:", *kind, "size:", *size,
+			"procs:", runtime.GOMAXPROCS(0), "seed:", *seed,)
 	}
 
 	startJob(&normal)
 
-	if err := loop(*file, *skip*maxAccumulations); err != nil {
+	var ani gifAnimator
+	if err := loop(&ani, *file, *skip*maxAccumulations); err != nil {
 		quit(3, err)
 	}
 }
