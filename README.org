@@ -5,7 +5,8 @@ A program to simulate the Game of Life.
 Copyright (c) 2016 Justin Flude <justin\under{}flude@hotmail.com>.
 All rights reserved.
 
-This version outputs animated GIFs from an unbounded sparse array.
+This version represents the world as an unbounded sparse array and outputs
+animated GIFs or APNGs.
 
 : $ go build
 : $ ./gogolife -help

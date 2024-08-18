@@ -7,8 +7,8 @@ type normalJob struct{}
 var normal normalJob
 
 func (j normalJob) start() {
-	origin.X = (display.Rect.Min.X + display.Rect.Max.X - 3*extent.Dx()) / 2
-	origin.Y = (display.Rect.Min.Y + display.Rect.Max.Y - 3*extent.Dy()) / 2
+	origin.X = (displayWidth - extent.Dx()) / 2
+	origin.Y = (displayHeight - extent.Dy()) / 2
 }
 
 func (j normalJob) work(id int, r *row) {
